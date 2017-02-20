@@ -23,7 +23,7 @@ export class HomeComponent implements OnInit {
   }
 
   onSubmitNewUserForm(){
-    console.log("yeah");
+    
     console.log(this.newUserForm);
   }
 
