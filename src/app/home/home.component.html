@@ -4,10 +4,11 @@
 </md-radio-group>
 <p>{{isNewUser}}</p>
 <div *ngIf="isNewUser">
-  <md-input-container>
-    <input mdInput placeholder="Insert a user Id" />
-  </md-input-container>
-  <button md-button>Create new user</button>
+  <form [formGroup]="newUserForm" (ngSubmit)="onSubmitNewUserForm()">
+    <md-input-container>
+      <input mdInput placeholder="Insert a user Id" formControlName="username" />
+    </md-input-container>
+    <button md-button type="submit">Create new user</button>
 
-
+  </form>
 </div>

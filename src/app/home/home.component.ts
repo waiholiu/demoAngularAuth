@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl, Validators, FormBuilder }
+  from '@angular/forms';
+
 
 @Component({
   selector: 'app-home',
@@ -7,11 +10,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  constructor(fb: FormBuilder) {
+        this.newUserForm = fb.group({
+            "username": ["", Validators.required]
+        });
+    }
 
-  isNewUser : boolean = false;
+  newUserForm: FormGroup;
+  isNewUser: boolean = false;
 
   ngOnInit() {
+  }
+
+  onSubmitNewUserForm(){
+    console.log("yeah");
+    console.log(this.newUserForm);
   }
 
 }
