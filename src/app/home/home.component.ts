@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder }
   from '@angular/forms';
 
+import { AuthenticationService } from '../authentication.service';
+import { GetvalueService } from '../getvalue.service';
+import { RegisterRequest } from '../registerRequest';
 
 @Component({
   selector: 'app-home',
@@ -10,11 +13,15 @@ import { FormGroup, FormControl, Validators, FormBuilder }
 })
 export class HomeComponent implements OnInit {
 
-  constructor(fb: FormBuilder) {
-        this.newUserForm = fb.group({
-            "username": ["", Validators.required]
-        });
-    }
+  constructor(fb: FormBuilder, private _authenticationService: AuthenticationService,
+    private getvalueService: GetvalueService) {
+    this.newUserForm = fb.group({
+      "email": ["", Validators.required],
+      "password": ["", Validators.required],
+      "confirmPassword" : ["", Validators.required],
+      "gender": ""
+    });
+  }
 
   newUserForm: FormGroup;
   isNewUser: boolean = false;
@@ -22,9 +29,37 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
   }
 
-  onSubmitNewUserForm(){
-    
-    console.log(this.newUserForm);
+  onSubmitNewUserForm() {
+    this._authenticationService.register(this.newUserForm.value)
+      .subscribe();
+    // console.log(this.newUserForm);
+  }
+
+  test() {
+
+    this.getvalueService.getValue()
+      .subscribe(
+      data => {
+        console.log(data);
+      },
+      error => {
+        console.log(error);
+      });
+  }
+  login() {
+
+    this._authenticationService.login("user1", "Sample1!")
+      .subscribe(
+      data => { },
+      error => {
+        console.log(error);
+      });
+  }
+
+  logout() {
+    this._authenticationService.logout()
+
+
   }
 
 }

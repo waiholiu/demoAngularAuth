@@ -8,6 +8,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
+import {AuthenticationService} from './authentication.service';
+import {GetvalueService} from './getvalue.service';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,7 @@ import { HomeComponent } from './home/home.component';
     ReactiveFormsModule,
     MaterialModule.forRoot()
   ],
-  providers: [],
+  providers: [AuthenticationService,GetvalueService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -6,9 +6,22 @@
 <div *ngIf="isNewUser">
   <form [formGroup]="newUserForm" (ngSubmit)="onSubmitNewUserForm()">
     <md-input-container>
-      <input mdInput placeholder="Insert a user Id" formControlName="username" />
+      <input mdInput placeholder="Insert an email" formControlName="email" />
+    </md-input-container>
+    <md-input-container>
+      <input mdInput placeholder="Insert a password" formControlName="password" />
+    </md-input-container>
+        <md-input-container>
+      <input mdInput placeholder="Repeat the password" formControlName="confirmPassword" />
+    </md-input-container>
+    <md-input-container>
+      <input mdInput placeholder="Insert a gender" formControlName="gender" />
     </md-input-container>
     <button md-button type="submit">Create new user</button>
 
   </form>
 </div>
+
+<button md-button (click)="login()">Login</button>
+<button md-button (click)="test()">Test</button>
+<button md-button (click)="logout()">Logout</button>
