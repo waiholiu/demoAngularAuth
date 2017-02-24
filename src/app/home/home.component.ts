@@ -19,6 +19,8 @@ export class HomeComponent implements OnInit {
   
   @StorageProperty({ storageKey: 'secondKey', storage: 'Local'}) public secondKey2: string;
 
+  secondKeyDescription : string;
+
   constructor(fb: FormBuilder, private _authenticationService: AuthenticationService,
     private getvalueService: GetvalueService, 
     private localStorage: LocalStorage, sessionStorage: SessionStorage) {
@@ -29,7 +31,8 @@ export class HomeComponent implements OnInit {
       "gender": ""
     });
 
-    this.secondKey2 = this.localStorage["secondKey"];
+    // this.secondKey2 = this.localStorage["secondKey"];
+    this.secondKeyDescription = this.secondKey2 + " ha";
 
   }
 
