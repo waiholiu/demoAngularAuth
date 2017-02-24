@@ -10,6 +10,7 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import {AuthenticationService} from './authentication.service';
 import {GetvalueService} from './getvalue.service';
+import {WebStorageModule, BROWSER_STORAGE_PROVIDERS} from "h5webstorage";
 
 @NgModule({
   declarations: [
@@ -22,9 +23,10 @@ import {GetvalueService} from './getvalue.service';
     HttpModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    MaterialModule.forRoot()
+    MaterialModule.forRoot(),
+    WebStorageModule
   ],
-  providers: [AuthenticationService,GetvalueService],
+  providers: [AuthenticationService,GetvalueService,BROWSER_STORAGE_PROVIDERS],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

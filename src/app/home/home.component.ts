@@ -5,6 +5,8 @@ import { FormGroup, FormControl, Validators, FormBuilder }
 import { AuthenticationService } from '../authentication.service';
 import { GetvalueService } from '../getvalue.service';
 import { RegisterRequest } from '../registerRequest';
+ import {LocalStorage, StorageProperty, SessionStorage} from 'h5webstorage';
+
 
 @Component({
   selector: 'app-home',
@@ -13,20 +15,31 @@ import { RegisterRequest } from '../registerRequest';
 })
 export class HomeComponent implements OnInit {
 
+  @StorageProperty({ storageKey: 'currentUser', storage: 'Local'}) public currentUser: string;
+  
+  @StorageProperty({ storageKey: 'secondKey', storage: 'Local'}) public secondKey2: string;
+
   constructor(fb: FormBuilder, private _authenticationService: AuthenticationService,
-    private getvalueService: GetvalueService) {
+    private getvalueService: GetvalueService, 
+    private localStorage: LocalStorage, sessionStorage: SessionStorage) {
     this.newUserForm = fb.group({
       "email": ["", Validators.required],
       "password": ["", Validators.required],
       "confirmPassword" : ["", Validators.required],
       "gender": ""
     });
+
+    this.secondKey2 = this.localStorage["secondKey"];
+
   }
 
   newUserForm: FormGroup;
   isNewUser: boolean = false;
 
+  testString : string;
+
   ngOnInit() {
+    this.testString = "b";
   }
 
   onSubmitNewUserForm() {
@@ -47,6 +60,8 @@ export class HomeComponent implements OnInit {
       });
   }
   login() {
+    
+    this.testString = this.testString + "a";
 
     this._authenticationService.login("user1", "Sample1!")
       .subscribe(
