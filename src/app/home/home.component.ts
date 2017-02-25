@@ -5,7 +5,7 @@ import { FormGroup, FormControl, Validators, FormBuilder }
 import { AuthenticationService } from '../authentication.service';
 import { GetvalueService } from '../getvalue.service';
 import { RegisterRequest } from '../registerRequest';
- import {LocalStorage, StorageProperty, SessionStorage} from 'h5webstorage';
+ 
 
 
 @Component({
@@ -18,8 +18,7 @@ export class HomeComponent implements OnInit {
   // @StorageProperty({ storageKey: 'currentUser', storage: 'Local'}) public currentUser: string;
   
   constructor(fb: FormBuilder, private _authenticationService: AuthenticationService,
-    private getvalueService: GetvalueService, 
-    private localStorage: LocalStorage, sessionStorage: SessionStorage) {
+    private getvalueService: GetvalueService) {
     this.newUserForm = fb.group({
       "email": ["", Validators.required],
       "password": ["", Validators.required],
