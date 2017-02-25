@@ -10,9 +10,10 @@ export class AuthenticationService {
 
   constructor(private http: Http, private localStorage: LocalStorage, sessionStorage: SessionStorage) { }
 
-  test() {
-    this.localStorage["secondKey"] = "something something";
+  @StorageProperty({ storageKey: 'currentUser', storage: 'Local'}) public currentUser: string;
 
+  test() {
+    
     return this.http.post('http://testbasicauth20170222085409.azurewebsites.net/value', "")
       .map((response: Response) => {
 
@@ -20,8 +21,15 @@ export class AuthenticationService {
 
   }
 
-  @StorageProperty() public secondKey: string = null;
+  getUserName() : string {
 
+    let store: any;
+    store = this.currentUser;
+    if (store) {
+      return store.userName;
+    }
+
+  }
 
   getToken(): string {
     let store: any;
@@ -32,7 +40,6 @@ export class AuthenticationService {
   }
 
   login(username: string, password: string) {
-    this.localStorage["secondKey"] = username;
     return this.http.post('http://testbasicauth20170222085409.azurewebsites.net/token', "grant_type=password&username=2@test.com&password=Sample1!")
       .map((response: Response) => {
         // login successful if there's a jwt token in the response
@@ -45,7 +52,6 @@ export class AuthenticationService {
   }
 
   logout() {
-    this.localStorage["secondKey"] = "nthing";
     // remove user from local storage to log user out
     this.localStorage.removeItem('currentUser');
   }

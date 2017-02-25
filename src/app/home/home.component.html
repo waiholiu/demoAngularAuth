@@ -11,7 +11,7 @@
     <md-input-container>
       <input mdInput placeholder="Insert a password" formControlName="password" />
     </md-input-container>
-        <md-input-container>
+    <md-input-container>
       <input mdInput placeholder="Repeat the password" formControlName="confirmPassword" />
     </md-input-container>
     <md-input-container>
@@ -24,12 +24,10 @@
 
 <button md-button (click)="login()">Login</button>
 <button md-button (click)="test()">Test</button>
-<button md-button (click)="logout()">Logout</button>
+<button md-button (click)="logout()">Logout</button> 
 
-{{currentUser?.userName}}
+<p> {{currentUser()}} </p>
 
-<p>
-  {{testString}}
-  </p>
-
-  <p>hello {{secondKeyDescription}}</p>
+<div *ngIf="isLoggedIn()">
+  Logged In
+</div>

@@ -15,12 +15,8 @@ import { RegisterRequest } from '../registerRequest';
 })
 export class HomeComponent implements OnInit {
 
-  @StorageProperty({ storageKey: 'currentUser', storage: 'Local'}) public currentUser: string;
+  // @StorageProperty({ storageKey: 'currentUser', storage: 'Local'}) public currentUser: string;
   
-  @StorageProperty({ storageKey: 'secondKey', storage: 'Local'}) public secondKey2: string;
-
-  secondKeyDescription : string;
-
   constructor(fb: FormBuilder, private _authenticationService: AuthenticationService,
     private getvalueService: GetvalueService, 
     private localStorage: LocalStorage, sessionStorage: SessionStorage) {
@@ -31,18 +27,23 @@ export class HomeComponent implements OnInit {
       "gender": ""
     });
 
-    // this.secondKey2 = this.localStorage["secondKey"];
-    this.secondKeyDescription = this.secondKey2 + " ha";
 
   }
 
   newUserForm: FormGroup;
   isNewUser: boolean = false;
 
-  testString : string;
+  currentUser() : string {
+      return this._authenticationService.getUserName();
+
+  }
+
+  isLoggedIn() : Boolean {
+    return this._authenticationService.currentUser != null;
+  }
 
   ngOnInit() {
-    this.testString = "b";
+    
   }
 
   onSubmitNewUserForm() {
@@ -64,8 +65,6 @@ export class HomeComponent implements OnInit {
   }
   login() {
     
-    this.testString = this.testString + "a";
-
     this._authenticationService.login("user1", "Sample1!")
       .subscribe(
       data => { },
