@@ -21,10 +21,23 @@
 
   </form>
 </div>
+<div *ngIf="!isNewUser">
+  <form [formGroup]="loginUserForm" (ngSubmit)="onSubmitLoginUserForm()">
+    <md-input-container>
+      <input mdInput placeholder="email" formControlName="email" />
+    </md-input-container>
+    <md-input-container>
+      <input mdInput placeholder="password" formControlName="password" />
+    </md-input-container>
+    <button md-button type="submit">Login</button>
+    </form>
+</div>
 
-<button md-button (click)="login()">Login</button>
+
+
+
 <button md-button (click)="test()">Test</button>
-<button md-button (click)="logout()">Logout</button> 
+<button md-button (click)="logout()">Logout</button>
 
 <p> {{currentUser()}} </p>
 

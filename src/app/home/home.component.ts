@@ -5,7 +5,7 @@ import { FormGroup, FormControl, Validators, FormBuilder }
 import { AuthenticationService } from '../authentication.service';
 import { GetvalueService } from '../getvalue.service';
 import { RegisterRequest } from '../registerRequest';
- 
+
 
 
 @Component({
@@ -16,39 +16,57 @@ import { RegisterRequest } from '../registerRequest';
 export class HomeComponent implements OnInit {
 
   // @StorageProperty({ storageKey: 'currentUser', storage: 'Local'}) public currentUser: string;
-  
+
   constructor(fb: FormBuilder, private _authenticationService: AuthenticationService,
     private getvalueService: GetvalueService) {
     this.newUserForm = fb.group({
       "email": ["", Validators.required],
       "password": ["", Validators.required],
-      "confirmPassword" : ["", Validators.required],
+      "confirmPassword": ["", Validators.required],
       "gender": ""
     });
+
+    this.loginUserForm = fb.group({
+      "email": ["2@test.com", Validators.required],
+      "password": ["Sample1!", Validators.required]
+
+    })
 
 
   }
 
   newUserForm: FormGroup;
+  loginUserForm: FormGroup;
   isNewUser: boolean = false;
 
-  currentUser() : string {
-      return this._authenticationService.getUserName();
+  currentUser(): string {
+    return this._authenticationService.getUserName();
 
   }
 
-  isLoggedIn() : Boolean {
+  isLoggedIn(): Boolean {
     return this._authenticationService.currentUser != null;
   }
 
   ngOnInit() {
-    
+
   }
 
   onSubmitNewUserForm() {
     this._authenticationService.register(this.newUserForm.value)
       .subscribe();
     // console.log(this.newUserForm);
+  }
+
+  onSubmitLoginUserForm() {
+
+    this._authenticationService.login(this.loginUserForm.value.email, this.loginUserForm.value.password)
+      .subscribe(
+      data => { },
+      error => {
+        console.log(error);
+      });
+
   }
 
   test() {
@@ -63,7 +81,7 @@ export class HomeComponent implements OnInit {
       });
   }
   login() {
-    
+
     this._authenticationService.login("user1", "Sample1!")
       .subscribe(
       data => { },

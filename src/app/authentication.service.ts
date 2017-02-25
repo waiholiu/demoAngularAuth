@@ -40,7 +40,8 @@ export class AuthenticationService {
   }
 
   login(username: string, password: string) {
-    return this.http.post('http://testbasicauth20170222085409.azurewebsites.net/token', "grant_type=password&username=2@test.com&password=Sample1!")
+    return this.http.post('http://testbasicauth20170222085409.azurewebsites.net/token', 
+      "grant_type=password&username=" + username + "&password="  + password)
       .map((response: Response) => {
         // login successful if there's a jwt token in the response
         let user = response.json();
