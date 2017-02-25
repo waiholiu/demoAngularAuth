@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, Response } from '@angular/http';
+import { Http, Headers, Response, URLSearchParams } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import { RegisterRequest } from './registerRequest';
@@ -10,10 +10,10 @@ export class AuthenticationService {
 
   constructor(private http: Http, private localStorage: LocalStorage, sessionStorage: SessionStorage) { }
 
-  @StorageProperty({ storageKey: 'currentUser', storage: 'Local'}) public currentUser: string;
+  @StorageProperty({ storageKey: 'currentUser', storage: 'Local' }) public currentUser: string;
 
   test() {
-    
+
     return this.http.post('http://testbasicauth20170222085409.azurewebsites.net/value', "")
       .map((response: Response) => {
 
@@ -21,7 +21,7 @@ export class AuthenticationService {
 
   }
 
-  getUserName() : string {
+  getUserName(): string {
 
     let store: any;
     store = this.currentUser;
@@ -40,8 +40,20 @@ export class AuthenticationService {
   }
 
   login(username: string, password: string) {
-    return this.http.post('http://testbasicauth20170222085409.azurewebsites.net/token', 
-      "grant_type=password&username=" + username + "&password="  + password)
+
+    let body = {
+      grant_type: "password",
+      username: username,
+      password: password
+    };
+
+    let data = new URLSearchParams();
+    data.append('grant_type', "password");
+    data.append('username', username);
+    data.append('password', password);
+
+    return this.http.post('http://testbasicauth20170222085409.azurewebsites.net/token',
+      data)
       .map((response: Response) => {
         // login successful if there's a jwt token in the response
         let user = response.json();
