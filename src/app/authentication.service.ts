@@ -21,6 +21,10 @@ export class AuthenticationService {
 
   }
 
+  isLoggedIn(): Boolean {
+    return this.currentUser != null;
+  }
+
   getUserName(): string {
 
     let store: any;
@@ -40,12 +44,6 @@ export class AuthenticationService {
   }
 
   login(username: string, password: string) {
-
-    let body = {
-      grant_type: "password",
-      username: username,
-      password: password
-    };
 
     let data = new URLSearchParams();
     data.append('grant_type', "password");

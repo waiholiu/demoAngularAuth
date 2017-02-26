@@ -11,11 +11,14 @@ import { HomeComponent } from './home/home.component';
 import {AuthenticationService} from './authentication.service';
 import {GetvalueService} from './getvalue.service';
 import {WebStorageModule, BROWSER_STORAGE_PROVIDERS} from "h5webstorage";
+import { AccountComponent } from './account/account.component';
+import { AuthGuard } from './auth-guard';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
+    AccountComponent
   ],
   imports: [
     BrowserModule,
@@ -26,7 +29,7 @@ import {WebStorageModule, BROWSER_STORAGE_PROVIDERS} from "h5webstorage";
     MaterialModule.forRoot(),
     WebStorageModule
   ],
-  providers: [AuthenticationService,GetvalueService,BROWSER_STORAGE_PROVIDERS],
+  providers: [AuthenticationService,GetvalueService,BROWSER_STORAGE_PROVIDERS, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

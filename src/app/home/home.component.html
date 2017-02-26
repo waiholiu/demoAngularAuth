@@ -37,10 +37,15 @@
 
 
 <button md-button (click)="test()">Test</button>
-<button md-button (click)="logout()">Logout</button>
+
 
 <p> {{currentUser()}} </p>
 
 <div *ngIf="isLoggedIn()">
-  Logged In
+  <p>Logged In</p>
+  <a [routerLink]="['/account']"> Go To Account </a>
+  <button md-button (click)="logout()">Logout</button>
+
+
 </div>
+

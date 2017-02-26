@@ -45,7 +45,7 @@ export class HomeComponent implements OnInit {
   }
 
   isLoggedIn(): Boolean {
-    return this._authenticationService.currentUser != null;
+    return this._authenticationService.isLoggedIn();
   }
 
   ngOnInit() {
